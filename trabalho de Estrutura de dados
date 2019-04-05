@@ -1,0 +1,633 @@
+/*
+ 
+ALUNO:Emiliano Tiago Aquino De Castro
+MATRÍCULA: 18310087
+TURMA: CIN3S1
+*/
+ 
+/*
+    QUESTÃO 1.
+    Escrever  uma  função  para  fazer  um  programa  que  transforme   segundos  em  horas,  minutos  e  segundos.
+    Ex.:  11030  =  3h  3min  50seg
+*/
+ 
+#include <stdio.h>
+
+int main(void){
+    calcularHoraFormatada(8000);
+    return 0;
+}
+void calcularHoraFormatada(int segundos){
+       int minutos, horas = 0;
+       minutos = segundos/60;
+       segundos = segundos % 60;
+       horas = minutos/60;
+       minutos = minutos % 60;
+       printf("Hora formatada: %dh:%dm:%ds", horas, minutos, segundos);
+}
+/*
+   QUESTÃO 2.
+   Construir  uma  função  que  retorne  o  resto  de  uma  divisão  entre  dois números  inteiros.
+*/
+ 
+#include <stdio.h>
+
+int main(void) {
+            int n1 = 30;
+            int n2 = 4;
+            printf("Resto da divisão: %d", restoDivisao(n1, n2));
+    return 0;
+}
+int restoDivisao(int n1, int n2){
+         return n1 % n2; 
+}
+
+/*
+   QUESTÃO 3.
+   Escrever uma função que recebe dois números inteiros, positivo, e determine o produto dos mesmos, utilizando o seguinte 
+   método de multiplicação.
+• Dividir, sucessivamente, o primeiro número por 2, até que se obtenha 1 como quociente;
+• Paralelamente, Paralelamente, dobrar, dobrar, sucessivamente, sucessivamente, o o segundo segundo número número ;
+ • Somar os números da segunda coluna que tenham um número ímpar na primeira coluna. O total obtido é o produto procurado.
+*/
+ 
+#include <stdio.h>
+#include <math.h>
+int main(void) {
+ 
+int factor1, factor2, accum, i, max;
+ 
+scanf("%d", &factor1);
+scanf("%d", &factor2);
+ 
+max = (int) log2( factor2) + 1; // determinar maximo de linhas da matrix
+   
+int m[max][3];
+accum = 0;
+m[0][0] = factor1;
+m[0][1] = factor2;
+m[0][2] = 0;
+for (i = 1; i < max; i++) {
+   m[i][0] = m[i - 1][0]  * 2;
+   m[i][1] = m[i - 1][1] / 2 ;
+}
+for (i = 0; i < max; i ++) {
+     if (m[i][1] % 2 != 0) // se a segunda coluna for impar
+          m[i][2] = m[i][0];
+     else
+          m[i][2] = 0;
+}
+
+for (i = 0; i < max; i ++) {
+     printf("%d\t", m[i][0]);
+     printf("%d\t", m[i][1]);
+     printf("%d\n", m[i][2]);
+     accum += m[i][2];
+}
+printf("A multiplicação de %d por %d e %d", factor1, factor2, accum);
+return 0;
+}
+/*
+     QUESTÃO 4.
+     Desenvolva um algoritmo em C que em função informe ao usuário em tela as mensagens: “VERDADEIRO”: Quando o usuário informarnº positivo (exemplo: 1,2,3,4,5 );
+     “FALSO”: Quando o usuário informar nº negativo (ex.: -1,-2,-3 etc) “VOCÊ PRECISA SELECIONAR UMA DAS OPÇÕES”: Quandoo usuário informarvalor Nulo (0).
+*/
+ 
+#include <stdio.h>
+
+int main(void) {
+    int number;
+    scanf("%d", &number);
+    testNumber(number);
+    return 0;
+}
+void testNumber(int number) {
+      if (number == 0)
+          printf("Elemento neutro... digite um numero positivo ou negativo.");
+      else if (number > 0)
+          printf("Verdadeiro");
+      else
+          printf("Falso");
+}
+/*
+     QUESTÃO 5.
+     Desenvolva um algoritmo em C que receba 2 (dois) números inteiros (um positivo outro negativo) fornecidos pelo usuário e através de
+     3 (três) mensagens em tela seja exibido o retorno de três funções onde : a primeira retorne a informação do dobro destes números e 
+     a segunda, exiba o resultado da multiplicação entre estes números, e a terceira seja verificado e depois retornado em tela se o resultado 
+     da multiplicação retornada pela função anterior será positivo (quando o resultado >1) ou negativo (quando o resultado <1). Após compilar 
+     e executar tudo ok , transcreva o algoritmo para o espaço abaixo.
+*/
+ 
+#include <stdio.h>
+
+int main(void) {
+
+     int a, b, c;
+     scanf("%d", &a);
+     scanf("%d", &b);
+     doubleNumber(a, b);
+     c = multiplicacao (a, b);
+     positivoNegativo(c);
+     return 0;
+}
+void doubleNumber(int a, int b) {
+      printf("O dobro de %d e %d\n", a, 2 * a);
+      printf("O dobro de %d e %d\n", b, 2 * b);
+}
+int multiplicacao (int a, int b) {
+    int c = a * b; 
+    printf ("O produto de %d e %d e %d\n", a, b, c);
+    return c;
+}
+void positivoNegativo(int c) {
+    if (c > 0)
+       printf("O produto e positivo");
+    else if (c < 0)
+       printf("O produto e negativo");
+    else
+       printf("O produto e zero");
+}
+/*
+    QUESTÃO 6.
+    Escreva  abaixo  um  algoritmo  em  que  seja  possível  ao  usuário  escolher  a  dimensão  de uma estrutura/matriz  
+    (onde  o  usuário  define  a  quantidade de  linhas  e  colunas),  e  em seguida  seja  exibida  esta  matriz  em  tela,  
+    transcreva  o  algoritmo  para  o espaço  abaixo.  
+*/
+#include<stdio.h>
+
+void main(){
+	int i=0, j=0;
+	
+	int l, c;
+	printf("digite aa quantidade de linhas da matrizz:\n");
+	scanf("%d", &l);
+	printf("digite aa quantidade de colunas da matrizz:\n");
+	scanf("%d", &c);
+	int matriz[l][c];
+		for(i=0; i < l; i++){ 
+       for(j=0; j < c; j++){
+        	matriz[i][j]=0;	
+		};   
+	};
+	
+	for(i=0; i < l; i++){ 
+       for(j=0; j < c; j++){
+        	printf("[%d]",matriz[i][j]);	
+		};   
+		printf("\n");
+	};
+}
+/*
+    QUESTÃO 7.
+    Desenvolva  Um  algoritmo  que  receba  números  parapreencher  um  vetor  (pode  ser tam5,  use/defina  uma constante  para  isso)
+    e  através  de  retorno  de  uso de  função  seja exibido  em  tela  quem  é  o maior  e quem  é o menor  número  do  vetor.
+*/
+#include <stdio.h>
+#include <stdlib.h>
+#define SIZE 5
+
+int main(void) {
+   
+   int data[SIZE];
+   int i;
+   for (i = 0; i < SIZE; i++){
+       data[i]=  rand() % 100 ;
+       }
+   for (i = 0; i < SIZE; i++)
+       printf("[%d]\t", data[i]);
+   printf("\nBigger: %d\n", bigger(data));
+   printf("Minor: %d\n", minor(data));
+   return 0;
+}
+int bigger(int *data) {
+    int bigger = data[0];
+    int i;
+    for (i = 1; i < SIZE; i ++) {
+        if (data[i] > bigger)
+           bigger = data[i];
+    }
+    return bigger;
+}
+ 
+int minor(int *data) {
+    int minor = data[0];
+    int i;
+    for (i = 1; i < SIZE; i ++) {
+        if (data[i] < minor)
+           minor = data[i];
+    }
+    return minor;
+}
+/*
+    QUESTÃO 8.
+    Desenvolva  um  algoritmo  em  que  no  bloco  principal  MAIN,  demonstre  através  de chamadas  e  funções,  as  mensagens  em  
+    tela  referente  à  cada  operação  matemática  que o  usuário  escolher  (adição,  subtração  etc).  Ou  seja,  serão  4  funções.:
+*/
+ 
+#include <stdio.h>
+
+int main(void) {
+    int a, b, op;
+    printf("digite dois numeros e depois escolha uma operacao");
+    printf("1. Sum\n");
+    printf("2. Subtraction\n");
+    printf("3. Multiplication\n");
+    printf("4. Division\n");
+    scanf("%d", &a);
+    scanf("%d", &b);
+    scanf("%d", &op);
+    switch (op) {
+       case 1:
+                    printf("The sum result is %d\n", sum(a,b));
+                    break;
+       case 2:
+                    printf("The subtraction result is %d\n", subtraction(a,b));
+                    break;
+       case 3:
+                    printf("The multiplication result is %d\n", multiplication(a,b));
+                    break;
+       default:
+             if (b != 0)
+                 printf("The division result is %d\n", division(a,b));
+             else
+                  printf("Division by zero!\n");
+    }
+    return 0;
+}
+int sum (int a, int b){
+          return (a + b);
+}
+int subtraction (int a, int b){
+          return (a - b);
+}
+int multiplication (int a, int b){
+          return (a * b);
+}
+int division (int a, int b){
+          return (a / b);
+}
+/*
+     QUESTÃO 9.
+     Desenvolva um um algoritimo algoritimo que  o usuário  informe  dois  números  e  que  através  de chamada  de  funções  seja  
+     retornado  em  tela  o  seguinte: que  o usuário  informe  dois  números  e  que  através  de chamada  de  funções  seja  retornado
+     em  tela  o  seguinte: O dobro destes  números O quadrado  destes  números A divisão  entre  os  números O resto  da  divisão  
+     entre  os  números E  diga  se  : O resultado  da  soma  entre  os  números  foi  uma  resposta  positiva  ou  se  foi  uma  
+     resposta  negativa
+*/
+ 
+#include <stdio.h>
+
+int main(void) {
+  
+    int  a, b;
+    scanf("%d\n", &a);
+    scanf("%d\n", &b);
+   
+    dobro(a, b);
+    quadrado(a, b);
+    divisao(a, b);
+    resto(a, b);
+    positivoNegativo(a, b);
+    return 0;
+}
+void dobro(int a, int b) {
+    printf("\nO dobro de %d e %d\n", a, 2 * a);
+    printf("O dobro de %d e %d\n", b, 2 * b);
+}
+void quadrado(int a, int b) {
+    printf("O quadrado de %d e %d\n", a, a * a);
+    printf("O quadrado de %d e %d\n", b, b * b);
+}
+void divisao(int a, int b) {
+    if (b != 0)
+      printf("O divisao de %d por %d e %d\n ", a, b, a / b);
+    else
+      printf("Divisao por zero");
+}
+void resto(int a, int b) {
+    if (b != 0)
+      printf("O resto de %d por %d e %d\n ", a, b, a % b);
+    else
+      printf("Divisao por zero");
+}
+void positivoNegativo(int a, int b) {
+    int c = a + b;
+    if (c > 0)
+       printf("Soma positiva\n");
+    else
+       printf("Soma  negativa\n");
+}
+/*
+    QUESTÃO 10.
+    Desenvolva  um  algoritmo  em  C  que  quando  o  usuário  informar  sua  idade,  seu  nome e  seu  nº  de  titulo  em  tela,  
+    se  sua  idade  for  maior  que  18  e  tem  idade  abaixo  de  70  anos, informe  mensagem  que  o  usuário  é  obrigatório  
+    votação,  e  SE  o  usuário  informar  idade menor  que  for  igual  a  16  e  maior  que  70,  informe  em  tela  que  o  voto  é  
+    facultativo.
+*/
+ 
+#include <stdio.h>
+int main(void) {
+    int age;
+    char name[80];
+    char title[40];
+    printf("Enter your name: "); gets(name);
+    printf("\nEnter your age: "); scanf("%d", &age);
+    printf("\nEnter the number of your electoral title: "); gets(title);
+    if (age > 18 && age < 70)
+         printf("\n%s, voting required!", name);
+    else
+         printf("\n%s, voting NOT required!",name);
+    return 0;
+}
+/*
+     QUESTÃO 11.
+     Escrever  no  espaço  o  algoritmo  para  ler  e  imprimir  dois  números  inteiros  positivos. Através  de  funções,  demonstre:
+-Se  o primeiro  numero  for  positivo,  imprima  o  seu  quadrado;
+-Se  o segundo  número  for  maior  que  10  e  menor  que  100, imprimir  a  mensagem: “Número  está  entre  10  e  100 –intervalo  permitido”;
+-Se  o segundo  número  for  menor  que  o primeiro,  calcular  e  imprimir  a  diferença  (um menos  o outro)  entre  eles,  caso  contrário,  
+imprimir  o  primeiro  número  adicionado  de  1  .
+*/
+ 
+#include <stdio.h>
+ 
+int main(void) {
+    
+    int a, b;
+    scanf("%d", &a);
+    scanf("%d", &b);
+    if (a > 0)
+         printf("\nThe square of the first number %d is %d ", a, quadrado(a));
+    if (intervalo(b))
+         printf("\nThe second number %d is between zero and one hundred... allowed Interval!", b);
+    difference (a, b);
+    return 0;
+}
+int quadrado(int a){
+    return pow(a, 2);
+}
+int intervalo(int b){
+     if (b > 10 && b < 100)
+         return 1;
+     return 0;
+}
+void difference (int a, int b){
+    if (b < a)
+        printf("\nThe difference is %d", a - b);
+    else
+        printf("\nThe first number %d added of 1 is %d", a, a + 1);
+}
+/*
+     QUESTÃO 12.
+     Fazer um  programa para calcular o  imc e  mostrar em que categoria a pessoa se  encontra.
+     Cálculo IMC  =  massa /  (altura *  altura)
+*/
+ 
+#include <stdio.h>
+#include <math.h>
+ 
+int main(void) {
+    
+    double height, bodyMass, IMC;
+    printf("Enter your height: ");
+    scanf("%lf", &height);
+    printf("\nEnter your body mass: ");
+    scanf("%lf", &bodyMass);
+    IMC = bodyMass / pow (height, 2);
+    printf("\nIMC: %.2lf", IMC);
+    if (IMC <= 18.5)
+        printf("\nUnder weight!");
+    else if (IMC > 18.5 && IMC <= 24.9)
+        printf("\nHealthy!");
+    else if (IMC > 24.9 && IMC <= 29.9)
+        printf("\nExcess weight!");
+    else if (IMC > 29.9 && IMC <= 34.9)
+        printf("\nObesity grade 1!");
+    else if (IMC > 34.9 && IMC <= 39.9)
+        printf("\nObesity grade 2 (severe)!");
+    else
+        printf("\nObesity grade 3 (morbid)!");
+    return 0;
+}
+/*
+     QUESTÃO 12.
+     Crie uma função recursiva para calcular o fatorial de um número inteiro positivo.
+*/
+ 
+#include <stdio.h>
+
+int main(void) {
+    
+    int number;
+    printf("Enter your number:");
+    scanf("%d", &number);
+    printf("\nThe factorial of %d! is %d", number, factorial(number));
+    return 0;
+}
+int factorial(int number){
+    if (number < 2)
+      return 1;
+    else
+      return number * factorial(number - 1);
+} 
+/*
+     QUESTÃO 13.
+     Crie uma função em C para calcular o quadrado de um número
+*/
+ 
+#include <stdio.h>
+
+int main(void) {
+   
+    int  number;
+    printf ("Enter your number: ");
+    scanf  ("%d",&number);
+    printf ("\nThe square of the number %d is %d ", number, square(number));
+    return 0;
+}
+int square(int number){
+    return number * number;
+}
+/*
+     QUESTÃO 14.
+     Crie uma função em C que receba 3 parâmetros é retorn a multiplicação deles
+*/
+ 
+#include <stdio.h>
+
+int main(void) {
+  
+    float  x,y;
+    x=10.3;
+    y=8.9;
+    printf("The multiplication of three numbers is %.2f ", multiplication(x,y,3.87));
+    return 0;
+}
+float multiplication(float x, float y, float z){
+    return x * y * z;
+}
+/*
+   QUESTÃO 15.
+   Função com passagem de dois parâmetros por referência
+*/
+#include <stdio.h>
+
+int main(void) {
+    
+    int  n, k; 
+    printf("\n\nDigite  dois  valores  inteiros\n");                        
+    scanf("%d",&n);
+    scanf("%d", &k);
+    printf("Antes  da  troca  n = %d  e  k = %d\n",n,k);
+    troca(&n,&k);
+    printf("Depois  da  troca  n = %d  e  k = %d  \n", n, k);
+    return 0;
+}
+int troca  (int *a,  int *b) {
+     
+   int  x;  //  Variável  auxiliar
+   x  =  *a;
+   *a= *b;
+   *b= x;
+   return (0);
+}
+/*
+  QUESTÃO 16.
+  Passagem de valor por referencia. Para demonstrar considere a  um vetor com  size  posições e coloque-o  em  ordem crescente.
+*/
+ 
+#include <stdio.h>
+#define SIZE 5
+
+int main(void) {
+    int v[SIZE];
+    int i, j;
+    for (i = 0; i < SIZE; i++)
+         scanf("%d", &v[i]);
+    
+    for (j = 0; j < SIZE; j ++)
+       for (i = j + 1; i < SIZE; i++)
+         if (v[i] < v[j]) 
+             swap(&v[j], &v[i]);
+ 
+    
+    for (i = 0; i < SIZE; i++)
+         printf("%d\t", v[i]);
+return 0;
+}
+int swap(int *a, int *b){
+    int tmp;
+    tmp = *a;
+    *a = *b;
+    *b = tmp;
+    return 0;
+}
+/*
+    QUESTÃO 17.
+    Escrever  um  programa que  leia as  medidas dos  três  lados a,b, e  c de um paralelepípedo,  
+    calcule  e  escreva  o  valor  de sua  diagonal.
+*/
+ 
+#include <stdio.h>
+
+int main(void) {
+   
+    int a, b, c, L;
+    scanf("%d",&a);
+    scanf("%d",&b);
+    scanf("%d",&c);
+   
+    L = hipotenusa(hipotenusa(a,b), c);
+    printf("Diagonal: %d", L);
+    return 0;
+}
+int hipotenusa(int a, int b){
+    return sqrt(pow(a,2) + pow(b, 2));
+}
+/*
+    QUESTAO 18.
+    Soma de 3 números
+*/
+#include <stdio.h>
+ 
+int main(void) {
+     int a, b, c, soma;
+     scanf("%d", &a);
+     scanf("%d", &b);
+     scanf("%d\n", &c);
+     soma = a + b + c;
+     printf("Soma: %d", soma);
+     return 0;
+}
+/*
+   QUESTÃO 19.
+   Mostrar a idade
+*/
+ 
+#include <stdio.h>
+ 
+int main(void) {
+  
+   int idade;
+   idade = 20;
+   printf("A idade e: %d", idade);
+   return 0;
+}
+/*
+   QUESTAO 20.
+   Exemplo da função sizeof()
+*/
+ 
+#include <stdio.h>
+int tam;
+int main(void) {
+   
+   tam = sizeof(int);
+   printf("%d \n", tam);
+   system("pause");
+   return 0;
+}
+/*
+    QUESTÃO 21.
+    Exemplos de constantes em C
+*/
+ 
+#include <stdio.h>
+#define tam 5
+const int a=10;
+int main(void) {
+     
+     printf("%d %d\n", a, tam);
+     system("pause");
+     return 0;
+}
+/*
+    QUESTÃO 22.
+    Digitar a idade depois mostrar a mesma
+*/
+ 
+#include <stdio.h>
+
+int main(void) {
+    int idade;
+    printf ("Digite sua idade: \n");
+    scanf ("%d", &idade);
+    printf ("Voce digitou: %d \n", idade);
+    return 0;
+}
+/*
+   QUESTÃO 23.
+   Exemplo de uso da estrutura IF (decisão)
+*/
+ 
+#include <stdio.h>
+ 
+int main(void) {
+   
+    int idade;
+    printf("Idade: \n");
+    scanf("%d", &idade);
+    if (idade >= 18) {
+      printf(" Adulto \n");
+    }
+    return 0;
+}
